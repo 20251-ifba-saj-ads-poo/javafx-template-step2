@@ -69,7 +69,8 @@ public class MasterController {
     @FXML
     void showCadAutores(ActionEvent event) {
         limparBotoes(event.getSource());
-        showFXMLFile("CadAutor.fxml");
+        CadAutorController controller = (CadAutorController)showFXMLFile("CadAutor.fxml");
+        controller.setMasterController(this);
     }
     @FXML
     void showListAutores(ActionEvent event) {
@@ -83,14 +84,18 @@ public class MasterController {
         showFXMLFile("CadLivro.fxml");
     }
 
-    private void showFXMLFile(String resourceName) {
+    public Object showFXMLFile(String resourceName) {
         try {            
-            Pane fxmlCarregado = FXMLLoader.load(getClass().getResource(resourceName));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(resourceName));
+            Pane fxmlCarregado = loader.load();
             masterPane.setCenter(fxmlCarregado);
+            return loader.getController();
+
         } catch (Exception e) {
             new Alert(AlertType.ERROR, "Erro ao carregar o arquivo " + resourceName).showAndWait();
             e.printStackTrace();
         }
+        return null;
     }
 
     public void setEmail(String email) {

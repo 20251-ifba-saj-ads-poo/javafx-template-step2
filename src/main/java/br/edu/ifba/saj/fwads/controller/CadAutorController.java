@@ -1,6 +1,6 @@
 package br.edu.ifba.saj.fwads.controller;
 
-import br.edu.ifba.saj.fwads.Biblioteca;
+import br.edu.ifba.saj.fwads.Dados;
 import br.edu.ifba.saj.fwads.model.Autor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +16,12 @@ public class CadAutorController {
     @FXML
     private TextField txCPF;
 
+    private MasterController masterController;
+    
+    public void setMasterController(MasterController masterController) {
+        this.masterController = masterController;
+    }
+
     @FXML
     private void salvarAutor() {
         Autor novoAutor = new Autor(txNome.getText(),
@@ -23,7 +29,7 @@ public class CadAutorController {
                     txCPF.getText());
         new Alert(AlertType.INFORMATION, 
         "Cadastrando Autor:"+novoAutor.getNome()).showAndWait();
-        Biblioteca.listaAutores.add(novoAutor);
+        Dados.listaAutores.add(novoAutor);
         limparTela();
     }
     @FXML
@@ -31,6 +37,7 @@ public class CadAutorController {
         txNome.setText("");
         txEmail.setText("");
         txCPF.setText("");
+        masterController.showFXMLFile("ListAutor.fxml");
     }
 
 }

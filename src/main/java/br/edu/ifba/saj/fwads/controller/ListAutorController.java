@@ -1,7 +1,7 @@
 package br.edu.ifba.saj.fwads.controller;
 
 import br.edu.ifba.saj.fwads.App;
-import br.edu.ifba.saj.fwads.Biblioteca;
+import br.edu.ifba.saj.fwads.Dados;
 import br.edu.ifba.saj.fwads.model.Autor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +29,7 @@ public class ListAutorController {
         columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         columnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         columnCPF.setCellValueFactory(new PropertyValueFactory<>("CPF"));
-        tblAutor.setItems(Biblioteca.listaAutores);
+        tblAutor.setItems(Dados.listaAutores);
     }
 
     @FXML

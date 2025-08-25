@@ -1,22 +1,15 @@
 package br.edu.ifba.saj.fwads.negocio;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import br.edu.ifba.saj.fwads.Dados;
 import br.edu.ifba.saj.fwads.exception.LoginInvalidoException;
 import br.edu.ifba.saj.fwads.model.Usuario;
 
 public class ValidaUsuario {
 
-    static List<Usuario> listaUsuarios = new ArrayList<>();
-
-    static{
-        listaUsuarios.add(new Usuario(1, "admin", "admin", "admin@sistema.com"));
-    }
 
     public Usuario validaLogin(String login, String senha) throws LoginInvalidoException{
         
-        for (Usuario usuario : listaUsuarios) {
+        for (Usuario usuario : Dados.listaUsuarios) {
             if(usuario.getLogin().equals(login)&&usuario.getSenha().equals(senha)){
                 return usuario;
             }
