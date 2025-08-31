@@ -22,8 +22,14 @@ public class CadLivroController {
     @FXML
     private ChoiceBox<Autor> slAutor;
 
+    private ListLivroController listLivroController;
+
     private Service<Livro> serviceLivro = new Service<>(Livro.class);
     private Service<Autor> serviceAutor = new Service<>(Autor.class);
+
+    public void setListLivroController(ListLivroController listLivroController) {
+        this.listLivroController = listLivroController;
+    }
 
     @FXML
     void salvarLivro(ActionEvent event) {
@@ -35,6 +41,9 @@ public class CadLivroController {
         new Alert(AlertType.INFORMATION, 
         "Livro:"+novoLivro.getTitulo()+" cadastrado com sucesso!").showAndWait();
         limparTela();
+        if (listLivroController!=null) {
+            listLivroController.loadLivroList();
+        }
     }
 
     @FXML 

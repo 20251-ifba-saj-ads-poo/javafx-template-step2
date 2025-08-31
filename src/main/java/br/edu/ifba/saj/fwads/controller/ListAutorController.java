@@ -29,6 +29,10 @@ public class ListAutorController {
         columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         columnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         columnCPF.setCellValueFactory(new PropertyValueFactory<>("CPF"));
+        loadAutorList();
+    }
+    
+    public void loadAutorList() {
         tblAutor.setItems(FXCollections.observableList(new Service(Autor.class).findAll()));
     }
 
@@ -39,6 +43,8 @@ public class ListAutorController {
         Scene scene = new Scene(App.loadFXML("controller/CadAutor.fxml"), 800, 600);            
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); 
+        CadAutorController controller = (CadAutorController) App.getController();
+        controller.setListAutorController(this);
         stage.showAndWait();            
     }
 
