@@ -1,16 +1,37 @@
 package br.edu.ifba.saj.fwads.model;
 
-public class Livro {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+@Entity
+public class Livro  extends AbstractEntity {
+    @Column
+    @NotBlank
+    @Size(min = 5)
     private String titulo;
+    @Column
+    @NotBlank
+    @Size(min = 5)
     private String subTitulo;
+    @Column
+    @NotBlank
+    @Size(min = 5)
     private String ISBN;
+    @ManyToOne
     private Autor autor;
 
-    public Livro(String titulo, String subTitulo, String iSBN, Autor autor) {
+    public Livro(@NotBlank @Size(min = 5) String titulo, @NotBlank @Size(min = 5) String subTitulo,
+            @NotBlank @Size(min = 5) String iSBN, Autor autor) {
         this.titulo = titulo;
         this.subTitulo = subTitulo;
         ISBN = iSBN;
         this.autor = autor;
+    }
+
+    public Livro() {
     }
 
     public String getTitulo() {
