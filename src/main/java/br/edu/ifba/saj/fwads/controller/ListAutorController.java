@@ -1,9 +1,9 @@
 package br.edu.ifba.saj.fwads.controller;
 
 import br.edu.ifba.saj.fwads.App;
-import br.edu.ifba.saj.fwads.Dados;
 import br.edu.ifba.saj.fwads.model.Autor;
-import javafx.event.ActionEvent;
+import br.edu.ifba.saj.fwads.service.Service;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -29,7 +29,7 @@ public class ListAutorController {
         columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         columnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         columnCPF.setCellValueFactory(new PropertyValueFactory<>("CPF"));
-        tblAutor.setItems(Dados.listaAutores);
+        tblAutor.setItems(FXCollections.observableList(new Service(Autor.class).findAll()));
     }
 
     @FXML

@@ -1,8 +1,9 @@
 package br.edu.ifba.saj.fwads.controller;
 
-import br.edu.ifba.saj.fwads.Dados;
 import br.edu.ifba.saj.fwads.model.Autor;
 import br.edu.ifba.saj.fwads.model.Livro;
+import br.edu.ifba.saj.fwads.service.Service;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -21,17 +22,19 @@ public class CadLivroController {
     @FXML
     private ChoiceBox<Autor> slAutor;
 
+    private Service<Livro> serviceLivro = new Service<>(Livro.class);
+    private Service<Autor> serviceAutor = new Service<>(Autor.class);
+
     @FXML
     void salvarLivro(ActionEvent event) {
         Livro novoLivro = new Livro(txTitulo.getText(),
-                    txSubTitulo.getText(), 
-                    txISBN.getText(),
-                    slAutor.getSelectionModel().getSelectedItem());
+        txSubTitulo.getText(), 
+        txISBN.getText(),
+        slAutor.getSelectionModel().getSelectedItem());
+        serviceLivro.create(novoLivro);
         new Alert(AlertType.INFORMATION, 
-        "Cadastrando Livro(Fake):"+novoLivro.toString()).showAndWait();
+        "Livro:"+novoLivro.getTitulo()+" cadastrado com sucesso!").showAndWait();
         limparTela();
-      
-
     }
 
     @FXML 
@@ -47,7 +50,7 @@ public class CadLivroController {
 
             @Override
             public Autor fromString(String stringAutor) {
-                return Dados.listaAutores
+                return serviceAutor.findAll()
                     .stream()
                     .filter(autor -> stringAutor.equals(autor.getNome() + ":" + autor.getEmail()))
                     .findAny()
@@ -63,12 +66,12 @@ public class CadLivroController {
         txTitulo.setText("");
         txSubTitulo.setText("");
         txISBN.setText("");
-        //Todo REVER
-        slAutor.setSelectionModel(null);
+        slAutor.setValue(null);
+        //new Alert(AlertType.INFORMATION, serviceLivro.findAll().toString()).showAndWait();
     }
 
     private void carregarListaAutores() {
-        slAutor.setItems(Dados.listaAutores);
+        slAutor.setItems(FXCollections.observableList(serviceAutor.findAll()));
     }
 
 }
