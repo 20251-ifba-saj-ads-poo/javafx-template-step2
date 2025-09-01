@@ -45,11 +45,11 @@ public class ListLivroController {
     void showNovoLivro(ActionEvent event) {
 
         Stage stage = new Stage();
-        Scene scene = new Scene(App.loadFXML("controller/CadLivros.fxml"), 800, 600);
+        Scene scene = new Scene(App.loadFXML("controller/CadLivro.fxml"), 800, 600);
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
         CadLivroController controller = (CadLivroController) App.getController();
-        controller.setListAutorController(this);
+        controller.setListLivroController(this);
 
         stage.showAndWait();
 
