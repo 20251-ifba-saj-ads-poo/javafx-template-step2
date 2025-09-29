@@ -24,6 +24,7 @@ public class Repository<T extends AbstractEntity> {
     static {
         try {
             sessionFactory = Persistence.createEntityManagerFactory("jpa");
+            runImport();
         } catch (Throwable ex) {
             throw new ExceptionInInitializerError(ex);
         }
@@ -32,12 +33,11 @@ public class Repository<T extends AbstractEntity> {
     private final Class<T> entityClass;
 
     public Repository(Class<T> entityClass) {
-        this.entityClass = entityClass;
-        runImport();
+        this.entityClass = entityClass;        
     }
 
     //executa o import.sql nos casos do hibernate update
-    private void runImport() {
+    private static void runImport() {
         try {
             EntityManager entityManager = sessionFactory.createEntityManager();
             entityManager.getTransaction().begin();
